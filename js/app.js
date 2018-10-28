@@ -1,6 +1,8 @@
-//teclas pequeñas
 var numeroPantalla = 0;
 var stringPantalla = "0";
+
+//retornos en la toma de id
+
 function esBoton(ID) {
     switch (ID) {
       case "1": return 1; break;
@@ -21,22 +23,31 @@ function esBoton(ID) {
       case "dividido":
       case "raiz":
       case "sign":
-      case "on":
+      case "on": return "on"; break;
         return -1;
       break;
       default:
         return -2;
     }
 }
+
+//funciones para tamaño de botones calculadora
+
 function teclaPequenia(elemento){
   elemento.style = "padding:1%";
 }
 function teclaNormal(elemento){
   elemento.style = "padding:0";
 }
+
+//evento para tomar id del elemento con evento del mouse
+
 document.addEventListener('mousedown', function(e) {
-    //e = e || window.event;
+    //e = e || window.event; /*compatibilidad*/
 	devolucion = esBoton(e.target.id);
+	
+//botones calculadora pequeñas
+	
     if (devolucion > -2) {
 		teclaPequenia(e.target);
 		if (devolucion > -1) {
@@ -46,31 +57,36 @@ document.addEventListener('mousedown', function(e) {
 					numeroPantalla = Number(stringPantalla);
 				}
 			} else {
-				if (stringPantalla.length < 8) {
+				if (stringPantalla.length < 8) { //solo 8 caracteres
 					stringPantalla = stringPantalla + String(devolucion);
 					numeroPantalla = Number(stringPantalla);					
 				}
 			}
 			document.getElementById('display').innerHTML = stringPantalla;
-			/*
-			// borrar el numero 0
-			if(numeroPantalla[0] == 0){
-				numeroPantalla= Number(numeroPantalla) + Number(devolucion);
-			};
-			// concatenar números
-				numeroPantalla = String(numeroPantalla)+String(devolucion);
-			// mostrar la concatenación
-			document.getElementById('display').innerHTML = numeroPantalla;
-			*/
 		}
 	}
 });
+
+//botones calculadora normales
+
 document.addEventListener('mouseup', function(e) {
-    //e = e || window.event;
+    //e = e || window.event; /*compatibilidad*/
+    if (esBoton(e.target.id) > -2) {
+		teclaNormal(e.target)}
+});
+document.addEventListener('mouseout', function(e) {
+    //e = e || window.event; /*compatibilidad*/
     if (esBoton(e.target.id) > -2) {
 		teclaNormal(e.target)}
 });
 
-	
+//boton on/c
 
-	
+document.addEventListener('mousedown', function(e) {
+    //e = e || window.event; /*compatibilidad*/
+    if (esBoton(e.target.id) == "on") {
+		document.getElementById('display').innerHTML = 0;
+		numeroPantalla = 0;
+		stringPantalla = "0";
+		}
+});
