@@ -1,6 +1,7 @@
 var numeroPantalla = 0;
 var stringPantalla = 0;
 var contadorPunto = 0;
+var contadorSingo = 0;
 //retornos en la toma de id
 function esBoton(ID) {
     switch (ID) {
@@ -45,7 +46,8 @@ document.addEventListener('mousedown', function(e) {
 //punto	
 	if (devolucion == 10){
 		contadorPunto = contadorPunto + 1;
-		if (contadorPunto == 1){
+		stringPantalla = String(stringPantalla);
+		if (contadorPunto == 1 && stringPantalla.length < 7){
 		stringPantalla = stringPantalla + ".";
 		}
 	};
@@ -59,6 +61,11 @@ document.addEventListener('mousedown', function(e) {
 		} else if (stringPantalla.length < 8) { 
 				stringPantalla = stringPantalla + String(devolucion);	
 		}
+	};
+//signo
+	if (devolucion == 18 && stringPantalla != 0){
+		stringPantalla = (-1) * stringPantalla;
+		stringPantalla = String(stringPantalla);
 	};
 //boton on/c
 	if (devolucion == 11) {
