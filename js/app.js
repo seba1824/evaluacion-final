@@ -1,7 +1,11 @@
-var numeroPantalla = 0;
 var stringPantalla = 0;
 var contadorPunto = 0;
-var contadorSingo = 0;
+var suma = 0;
+var numero2 = 0;
+var resta = 0;
+var multiplica = 0;
+var divide = 0;
+var contadorIgual = 0;
 //retornos en la toma de id
 function esBoton(ID) {
     switch (ID) {
@@ -35,11 +39,47 @@ function teclaPequenia(elemento){
 function teclaNormal(elemento){
   elemento.style = "padding:0";
 };
+//funcion sumar
+function sumar(){
+	if (contadorIgual == 1){
+		numero2 = stringPantalla;
+		stringPantalla = Number(suma) + Number(stringPantalla);
+	}else{
+		stringPantalla = Number(numero2) + Number(stringPantalla);
+	};
+};
+//funcion restar
+function restar(){
+	if (contadorIgual == 1){
+		numero2 = stringPantalla;
+		stringPantalla = Number(resta) - Number(stringPantalla);
+	}else{
+		stringPantalla = Number(stringPantalla) - Number(numero2);
+	};
+};
+//funcion multiplicar
+function multiplicar(){
+	if (contadorIgual == 1){
+		numero2 = stringPantalla;
+		stringPantalla = Number(multiplica) * Number(stringPantalla);
+	}else{
+		stringPantalla = Number(numero2) * Number(stringPantalla);
+	};
+};
+//funcion dividir
+function dividir(){
+	if (contadorIgual == 1){
+		numero2 = stringPantalla;
+		stringPantalla = Number(divide) / Number(stringPantalla);
+	}else{
+		stringPantalla = Number(stringPantalla) / Number(numero2);
+	};
+};
 //evento para tomar id del elemento con evento del mouse
 document.addEventListener('mousedown', function(e) {
     //e = e || window.event; /*compatibilidad*/
 	devolucion = esBoton(e.target.id);
-//botones calculadora pequeñas
+//botones calculadora pequeños
     if (devolucion > -2) {
 		teclaPequenia(e.target);
 	};
@@ -57,8 +97,7 @@ document.addEventListener('mousedown', function(e) {
 			if (devolucion != 0) {
 				stringPantalla = String(devolucion);
 			}
-//8 caracteres
-		} else if (stringPantalla.length < 8) { 
+		} else/* if (stringPantalla.length < 8) */{ 
 				stringPantalla = stringPantalla + String(devolucion);	
 		}
 	};
@@ -69,10 +108,73 @@ document.addEventListener('mousedown', function(e) {
 	};
 //boton on/c
 	if (devolucion == 11) {
-		numeroPantalla = 0;
 		stringPantalla = 0;
 		contadorPunto = 0;
-	}
+		suma = 0;
+		numero2 = 0;
+		resta = 0;
+		multiplica = 0;
+		divide = 0;
+		contadorIgual = 0;
+	};
+//suma
+	if (devolucion == 13) {
+		suma = stringPantalla;
+		stringPantalla = 0;
+		contadorPunto = 0;
+		contadorIgual = 0;
+		resta = 0;
+		multiplica = 0;
+		divide = 0;
+	};
+//resta
+	if (devolucion == 14) {
+		resta = stringPantalla;
+		stringPantalla = 0;
+		contadorPunto = 0;
+		contadorIgual = 0;
+		multiplica = 0;
+		divide = 0;
+		suma = 0;
+	};
+//multiplicar
+	if (devolucion == 15) {
+		multiplica = stringPantalla;
+		stringPantalla = 0;
+		contadorPunto = 0;
+		contadorIgual = 0;
+		resta = 0;
+		divide = 0;
+		suma = 0;
+	};
+//dividir
+	if (devolucion == 16) {
+		divide = stringPantalla;
+		stringPantalla = 0;
+		contadorPunto = 0;
+		contadorIgual = 0;
+		resta = 0;
+		multiplica = 0;
+		suma = 0;
+	};
+//igual
+	if (devolucion == 12) {
+		contadorIgual = contadorIgual + 1;
+		if (suma) {
+			sumar();
+		};if (resta) {
+			restar();
+		};if (multiplica) {
+			multiplicar();
+		};if (divide) {
+			dividir();
+		};
+		stringPantalla = String(stringPantalla);
+	};
+//8 caracteres
+	if (stringPantalla.length > 8){
+		stringPantalla = stringPantalla.substr(0, 8);
+	};
 	document.getElementById('display').innerHTML = stringPantalla;	
 });
 //botones calculadora normales
